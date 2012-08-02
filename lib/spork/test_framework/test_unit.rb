@@ -13,7 +13,7 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
       # MiniTest's test/unit does not support -I, -r, or -e
       # Extract them and remove from arguments that are passed to testrb.
       argv.each_with_index do |arg, idx|
-        if arg =~ /-I(.*)/
+        if arg =~ /^-I(.*)/
           if $1 == ''
             # Path is next argument.
             include_path = argv[idx + 1]
@@ -23,7 +23,7 @@ class Spork::TestFramework::TestUnit < Spork::TestFramework
           end
           $LOAD_PATH << include_path
           argv[idx] = nil
-        elsif arg =~ /-r(.*)/
+        elsif arg =~ /^-r(.*)/
           if $1 == ''
             # File is next argument.
             require_file = argv[idx + 1]
